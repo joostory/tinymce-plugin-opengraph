@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "opengraph TinyMCE plugin repo",
   "scripts": {
-    "start": "webpack-dev-server --config config/webpack.config.dev.js --progress --open --inline",
+    "start": "NODE_ENV=development webpack-dev-server --progress --inline --content-base static",
     "lint": "eslint 'src/**/*.js'",
-    "build": "webpack --config config/webpack.config.prod.js --progress"
+    "build": "NODE_ENV=production webpack --progress"
   },
   "author": "",
   "devDependencies": {
