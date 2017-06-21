@@ -1,24 +1,15 @@
-import _ from 'lodash';
+import './style/opengraph.css'
+import App from './App'
 
 const plugin = (editor) => {
+  let app = new App(editor)
+
   editor.addButton('opengraph', {
-    text: 'opengraph',
-    icon: false,
-    onclick: () => {
-      // Open window
-      editor.windowManager.open({
-        title: 'opengraph plugin',
-        body: [
-          { type: 'textbox', name: 'title' }
-        ],
-        onsubmit(e) {
-          // Insert content when the window form is submitted
-          const kebabbyString = _.kebabCase(e.data.title);
-          editor.insertContent(kebabbyString);
-        }
-      });
+    icon: 'media',
+    onclick: e => {
+      app.open()
     }
-  });
-};
+  })
+}
 
 export default plugin;

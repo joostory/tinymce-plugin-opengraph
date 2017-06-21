@@ -22,7 +22,9 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "css-loader": "^0.28.4",
+    "lodash": "^4.17.4",
+    "style-loader": "^0.18.2"
   },
   "license": "MIT"
 }

@@ -1,0 +1,7 @@
+.mce-opengraph {}
+.mce-opengraph-input { margin:20px; }
+.mce-opengraph {}
+.mce-opengraph .mce-opengraph-header { margin:15px;}
+.mce-opengraph .mce-opengraph-input { width:100%; border:1px solid #eee; height: 40px; padding: 10px; box-sizing: border-box; font-size: 14px; }
+.mce-opengraph .mce-opengraph-input:focus { border-color:#999 }
+.mce-opengraph .mce-opengraph-body {}
