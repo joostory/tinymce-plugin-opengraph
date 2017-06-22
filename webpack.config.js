@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-const pluginName = 'codeblock'
+const pluginName = 'opengraph'
 
 module.exports = {
   entry: process.env.NODE_ENV !== "production" ? {
