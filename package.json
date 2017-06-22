@@ -1,5 +1,5 @@
 {
-  "name": "opengraph",
+  "name": "tinymce-plugin-opengraph",
   "version": "0.1.0",
   "description": "opengraph TinyMCE plugin repo",
   "scripts": {
