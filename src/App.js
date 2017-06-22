@@ -1,4 +1,6 @@
 import validate from 'validate.js'
+import OpengraphRenderer from './OpengraphRenderer'
+import OpengraphPreviewRenderer from './OpengraphPreviewRenderer'
 
 const STATUS_READY = 1
 const STATUS_FETCHING = 2
@@ -93,17 +95,8 @@ class App {
 
   showOpengraph() {
     const { opengraph, $body } = this
-    let body;
-    if (opengraph.mediaUrl) {
-      body = `<iframe class="mce-opengraph-media" src="${opengraph.mediaUrl}" frameborder="0" allowfullscreen></iframe>`
-    } else {
-      body = ''
-      if (opengraph.image) {
-        body += `<div class="mce-opengraph-image"><img src="${opengraph.image}"></div>`
-      }
-      body += `<div class="mce-opengraph-content"><div class="mce-opengraph-title">${opengraph.title}</div><div class="mce-opengraph-description">${opengraph.description}</div><div class="mce-opengraph-host">${opengraph.host}</div></div>`
-    }
-    $body.html(`<div class="mce-opengraph-preview">${body}</div>`)
+    let renderer = new OpengraphPreviewRenderer(opengraph)
+    $body.html(renderer.render())
   }
 
   onKeydown(e) {
@@ -120,6 +113,14 @@ class App {
   }
 
   onSubmit(e) {
+    const { editor, opengraph } = this
+
+    if (opengraph) {
+      let renderer = new OpengraphRenderer(opengraph)
+      editor.insertContent(renderer.render())
+      editor.nodeChanged()
+    }
+
     this.close()
   }
 
