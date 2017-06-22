@@ -4,4 +4,13 @@
 .mce-opengraph .mce-opengraph-header { margin:15px;}
 .mce-opengraph .mce-opengraph-input { width:100%; border:1px solid #eee; height: 40px; padding: 10px; box-sizing: border-box; font-size: 14px; }
 .mce-opengraph .mce-opengraph-input:focus { border-color:#999 }
-.mce-opengraph .mce-opengraph-body {}
+.mce-opengraph .mce-opengraph-body { position:absolute; top:70px; bottom:0; left:0; right:0; display:flex; align-items: center; justify-content: center; color:#999 }
+.mce-opengraph .mce-opengraph-error { color:#f99 }
+.mce-opengraph .mce-opengraph-body .mce-opengraph-preview { width:470px; height:330px; box-shadow:0 1px 5px #999; margin-top:-15px }
+.mce-opengraph .mce-opengraph-body .mce-opengraph-image,
+.mce-opengraph .mce-opengraph-body .mce-opengraph-image img { width:470px; height:235px }
+.mce-opengraph .mce-opengraph-body .mce-opengraph-content { width:470px; height:95px; padding:10px; box-sizing:border-box }
+.mce-opengraph .mce-opengraph-body .mce-opengraph-title { font-weight:500; font-size:18px; overflow: hidden; word-wrap: break-word; line-height:25px; text-overflow: ellipsis }
+.mce-opengraph .mce-opengraph-body .mce-opengraph-description { font-size:12px; line-height:18px; height:36px; white-space: normal;-webkit-line-clamp: 2; -webkit-box-orient: vertical; text-overflow: ellipsis; display: -webkit-box; overflow:hidden }
+.mce-opengraph .mce-opengraph-body .mce-opengraph-host { font-size:11px; color:#999; line-height:14px }
+.mce-opengraph .mce-opengraph-body .mce-opengraph-media { width:470px; height:330px; }
