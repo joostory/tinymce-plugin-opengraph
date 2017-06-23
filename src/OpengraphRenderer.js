@@ -23,13 +23,13 @@ class OpengraphRenderer {
 		let body = ''
 		body = ''
 		if (image) {
-			body += `<div style="width:470px; height:235px">
-				<a href="${url}"><img style="width:470px; height:235px" src="${image}"></a>
+			body += `<div style="width:470px; height:235px; overflow:hidden">
+				<a href="${url}"><img style="width:470px" src="${image}"></a>
 			</div>`
 		}
 		body += `<div style="width:470px; padding:10px; box-sizing:border-box">
-			<a href="${url}" style="display:block; font-weight:500; font-size:18px; overflow: hidden; word-wrap: break-word; line-height:25px; text-overflow: ellipsis; white-space:nowrap">${title}</a>
-			<div style="font-size:12px; line-height:18px; height:36px; white-space: normal;-webkit-line-clamp: 2; -webkit-box-orient: vertical; text-overflow: ellipsis; display: -webkit-box; overflow:hidden">${description}</div>
+			<a href="${url}" style="display:block; font-weight:500; font-size:18px; overflow: hidden; word-wrap: break-word; line-height:25px; text-overflow: ellipsis; white-space:nowrap; color:#666; text-decoration:none">${title}</a>
+			<div style="font-size:12px; line-height:18px; height:36px; white-space: normal;-webkit-line-clamp: 2; -webkit-box-orient: vertical; text-overflow: ellipsis; display: -webkit-box; overflow:hidden; color:#666">${description}</div>
 			<div style="font-size:11px; color:#999; line-height:14px">${host}</div>
 		</div>`
 		return `<div style="position:relative; width:470px; box-shadow:0 1px 5px #999; margin: 10px auto"
