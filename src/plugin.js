@@ -7,9 +7,11 @@ const plugin = (editor) => {
 
   editor.addButton('opengraph', {
     icon: 'media',
-    onclick: e => {
-      app.open()
-    }
+    cmd: 'mceOpengraph'
+  })
+
+  editor.addCommand('mceOpengraph', () => {
+    app.open()
   })
 
   editor.on("PreProcess", e => {
@@ -23,6 +25,8 @@ const plugin = (editor) => {
       elm.contentEditable = false
     })
   })
+
+  editor.shortcuts.add('meta+o', 'Opengraph', 'mceOpengraph')
 }
 
 export default plugin;
