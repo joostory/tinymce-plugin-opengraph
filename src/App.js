@@ -1,4 +1,4 @@
-import validate from 'validate.js'
+import { isURL } from './validate'
 import OpengraphRenderer from './OpengraphRenderer'
 import OpengraphPreviewRenderer from './OpengraphPreviewRenderer'
 
@@ -103,7 +103,7 @@ class App {
     let keyCode = e.keyCode
     let value = this.$input[0].value
     if (keyCode === 13 || keyCode === 9) {
-      if (validate({ website: value }, { website: { url: true } })) {
+      if (!isURL(value)) {
         this.status = STATUS_FAILED
         this.showBody()
       } else {
