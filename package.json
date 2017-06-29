@@ -1,6 +1,6 @@
 {
   "name": "tinymce-plugin-opengraph",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "opengraph TinyMCE plugin repo",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --progress --inline --content-base static",
