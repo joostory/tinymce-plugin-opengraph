@@ -15,7 +15,7 @@ class OpengraphRenderer {
 
 	renderMedia() {
 		const { mediaUrl, url } = this.opengraph
-		return `<iframe src="${mediaUrl}" data-opengraph-url="${url}" width="560" height="315" frameborder="0" allowfullscreen style="display:block; margin:10px auto"></iframe>`
+		return `<iframe src="${mediaUrl}" data-opengraph-url="${url}" width="560" height="315" frameborder="0" allowfullscreen style="display:block; margin:10px auto 30px"></iframe>`
 	}
 
 	renderSummary() {
@@ -32,7 +32,7 @@ class OpengraphRenderer {
 			<div style="font-size:12px; line-height:18px; height:36px; white-space: normal;-webkit-line-clamp: 2; -webkit-box-orient: vertical; text-overflow: ellipsis; display: -webkit-box; overflow:hidden; color:#666">${description}</div>
 			<div style="font-size:11px; color:#999; line-height:14px">${host}</div>
 		</div>`
-		return `<div style="position:relative; max-width:470px; box-shadow:0 1px 5px #999; margin: 10px auto"
+		return `<div style="position:relative; max-width:470px; box-shadow:0 1px 5px #999; margin: 10px auto 30px"
 			data-opengraph-image="${image}" data-opengraph-title="${title}"
 			data-opengraph-description="${description}" data-opengraph-host="${host}"
 			data-opengraph-url="${url}">
