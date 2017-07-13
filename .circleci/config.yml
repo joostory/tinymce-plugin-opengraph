@@ -11,6 +11,7 @@ jobs:
 
       - restore_cache:
         - v1-dependencies-{{ checksum "package.json" }}
+        - v1-dependencies-
 
       - run: yarn install
 
