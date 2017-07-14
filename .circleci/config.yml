@@ -10,8 +10,7 @@ jobs:
       - checkout
 
       - restore_cache:
-        - v1-dependencies-{{ checksum "package.json" }}
-        - v1-dependencies-
+        - key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn install
 
