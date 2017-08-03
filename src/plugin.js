@@ -7,6 +7,7 @@ const plugin = (editor) => {
 
   editor.addButton('opengraph', {
     icon: 'media',
+    tooltip: '미디어',
     cmd: 'mceOpengraph'
   })
 
