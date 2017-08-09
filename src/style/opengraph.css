@@ -18,7 +18,8 @@
   padding: 10px;
   box-sizing: border-box;
   font-size: 13px;
-  color: #333
+  color: #333;
+  background-color:#fff
 }
 
 .mce-opengraph .mce-opengraph-input:focus {
@@ -54,7 +55,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999
+  color: #828C9B;
+  font-size:18px
 }
 
 .mce-opengraph .ico_loading {
