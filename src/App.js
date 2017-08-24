@@ -47,12 +47,14 @@ class App {
     this.$btnSubmit = win.$('.mce-opengraph-submit')
     this.$btnCancel = win.$('.mce-opengraph-cancel')
     this.$window = win.$(window)
+    this.$modalBlock = win.$('#mce-modal-block')
     
     this.$input.on("keydown", this.onKeydown)
     this.$btnSearch.on("click", this.onSearch)
     this.$btnSubmit.on("click", this.onSubmit)
     this.$btnCancel.on("click", this.onCancel)
     this.$window.on("keydown", this.onWindowKeydown)
+    this.$modalBlock.on("click", this.onCancel)
     this.$input[0].focus()
 
     this.win = win
@@ -67,6 +69,7 @@ class App {
       this.$btnSubmit.off("click")
       this.$btnCancel.off("click")
       this.$window.off("keydown")
+      this.$modalBlock.off("click")
       this.win.close()
       
       this.opengraph = null
