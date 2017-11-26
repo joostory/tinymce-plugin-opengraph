@@ -1,4 +1,8 @@
-# opengraph TinyMCE Plugin
+# opengraph TinyMCE Plugin [![npm][npm-image]][npm-url]
+
+[npm-image]: https://img.shields.io/npm/v/tinymce-plugin-opengraph.svg
+[npm-url]: https://npmjs.org/package/tinymce-plugin-opengraph
+
 
 Welcome stranger! This is a repo containing the opengraph TinyMCE plugin.
 
