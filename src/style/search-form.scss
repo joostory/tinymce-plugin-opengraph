@@ -1,0 +1,42 @@
+
+.mce-opengraph-input {
+  margin: 20px;
+}
+
+.mce-opengraph .mce-opengraph-input {
+  width: 100%;
+  border: 1px solid #C5CDD7;
+  height: 37px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 13px;
+  color: #333;
+  background-color: #fff
+}
+
+.mce-opengraph .mce-opengraph-input:focus {
+  border-color: #828C9B
+}
+
+.mce-opengraph .mce-opengraph-search {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  width: 37px;
+  height: 37px;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: center;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+}
+
+.mce-opengraph .mce-opengraph-input:focus+.mce-opengraph-search .mce-ico.mce-plus {
+  background-position: -26px 0
+}
+
+.mce-opengraph .mce-ico.mce-plus {
+  text-indent: -10000px;
+  background-position: 0 0;
+}

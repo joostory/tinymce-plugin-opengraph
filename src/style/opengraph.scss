@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.mce-window .mce-opengraph {
+  background-color: #FAFBFC
+}
+
+.mce-window .mce-opengraph * {
+  font-family: "Noto Sans DemiLight", AppleSDGothicNeo, "돋움", dotum, sans-serif;
+  letter-spacing: -0.2px
+}
+
+.mce-opengraph .mce-opengraph-header {
+  padding: 30px;
+  position: relative
+}
+
+@import 'search-form';
+@import 'preview';
+@import 'footer';

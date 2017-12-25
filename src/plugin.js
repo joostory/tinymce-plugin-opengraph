@@ -1,4 +1,4 @@
-import './style/opengraph.css'
+import './style/opengraph.scss'
 import App from './App'
 
 const plugin = (editor) => {
