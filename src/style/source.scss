@@ -1,0 +1,17 @@
+.mce-window .mce-opengraph-source {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .mce-opengraph-textarea {
+    width:90%;
+    height:90%;
+    box-sizing: border-box;
+    padding: 20px;
+    color: #828C9B;
+    background-color: #fff;
+    resize: none;
+    border: 1px solid #C5CDD7;
+    white-space: pre-wrap;
+  }
+}
