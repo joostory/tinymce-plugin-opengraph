@@ -11,9 +11,8 @@ module.exports = {
     'plugin': './src/index.js',
     'plugin.min': './src/index.js'
   },
-  output: process.env.NODE_ENV !== "production" ? {
-    publicPath: '/'
-  } : {
+  output: {
+    publicPath: '/',
     path: path.join(__dirname, './dist', pluginName),
     filename: '[name].js'
   },

@@ -1,0 +1,39 @@
+<textarea>Testing opengraph</textarea>
+
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="/bundle.js"></script>
+<script>
+  tinymce.init({
+    selector:'textarea',
+    plugins: 'opengraph code autoresize',
+    toolbar: 'opengraph code',
+    extended_valid_elements : 'script[type|src]',
+    opengraph: {
+      fetch_handler: (url, callback) => {
+        setTimeout(() => {
+          if (url === "http://a.com") {
+            callback({
+              description: "안녕하세요, TISTORY입니다. 지난 2월 2일부터 시범운영한 로그인 보안 기능을 정식 오픈합니다. 현재까지 3천 여개의 계정에서 사용 중이며 등록된 기기는 7천 여개에 달합니다. 많은 분들의 사용으로 안정성을 확인하였으므로 이제 모든 계정에 로그인 보안 기능을 활성화하려고 합니다 로그인 보안 바로가기 Q&A 정식 오픈으로 무엇이 달라지나요? 모든 계정에 로그인 보안이 기본적으로 활성화됩니다. 시범운영 기간 동안에..",
+              host: "notice.tistory.com",
+              mediaUrl: "",
+              image: "http://cfile1.uf.tistory.com/image/197F333A4F0A730C0305D9",
+              title: "당신의 블로그는 안전한가요? - 로그인 보안 기능 정식 오픈 로그인 보안 기능 정식 오픈",
+              type: "article",
+              url: "http://notice.tistory.com/2384"
+            })
+          } else {
+            callback({
+              description: "자유를 위해, 가족을 위해, 이 땅을 위해! '혹성탈출: 종의 전쟁(War for the Planet of the Apes)' 1차 예고편 --------- 영화 소개 --------- ▶장르(Genre) : 액션(Action), 모험(Adventure), 드라마(Drama) ▶...",
+              host : "www.youtube.com",
+              image : "https://i.ytimg.com/vi/W28VlDoJwGo/hqdefault.jpg",
+              mediaUrl : "https://www.youtube.com/embed/W28VlDoJwGo",
+              title : "[혹성탈출: 종의 전쟁] 1차 예고편 War for the Planet of the Apes 앤디 서키스,우디 해럴슨, 주디 그리어, 맷 리브스 감독 (한국어 CC)",
+              type : "video",
+              url : "https://www.youtube.com/watch?v=W28VlDoJwGo"
+            })
+          }
+        }, 1000)
+      }
+    }
+  });
+</script>
