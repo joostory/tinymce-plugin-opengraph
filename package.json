@@ -6,7 +6,7 @@
     "start": "node server.js",
     "lint": "eslint 'src/**/*.js'",
     "test": "jest -u",
-    "build": "NODE_ENV=production webpack --progress"
+    "build": "NODE_ENV=production webpack --progress --mode production"
   },
   "author": "",
   "devDependencies": {
