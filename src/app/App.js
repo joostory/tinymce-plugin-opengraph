@@ -1,7 +1,7 @@
 import { isURL } from './validate'
-import OpengraphRenderer from './OpengraphRenderer'
-import OpengraphPreviewRenderer from './OpengraphPreviewRenderer'
-import SourceRenderer from './SourceRenderer'
+import OpengraphRenderer from '../renderer/OpengraphRenderer'
+import OpengraphPreviewRenderer from '../renderer/OpengraphPreviewRenderer'
+import SourceRenderer from '../renderer/SourceRenderer'
 
 import autobind from 'autobind-decorator'
 
