@@ -1,3 +1,3 @@
-import plugin from './plugin';
+import plugin from './app/plugin';
 
 tinymce.PluginManager.add('opengraph', plugin);

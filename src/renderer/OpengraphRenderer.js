@@ -14,8 +14,8 @@ class OpengraphRenderer {
 	}
 
 	renderMedia() {
-		const { mediaUrl, url } = this.opengraph
-		return `<iframe src="${mediaUrl}" data-opengraph-url="${url}" width="560" height="315" frameborder="0" allowfullscreen style="display:block; margin:10px auto 30px"></iframe>`
+		const { mediaUrl, url, image, title } = this.opengraph
+		return `<iframe src="${mediaUrl}" data-opengraph-url="${url}" data-opengraph-image="${image}" data-opengraph-title="${encodeURIComponent(title)}" width="560" height="315" frameborder="0" allowfullscreen style="display:block; margin:10px auto 30px"></iframe>`
 	}
 
 	renderSummary() {

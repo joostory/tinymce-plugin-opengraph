@@ -1,4 +1,4 @@
-import { isURL } from '../validate'
+import { isURL } from './validate'
 
 it('validate url', () => {
   expect(isURL('http://www.daum.net')).toBe(true)

@@ -1,5 +1,7 @@
-import './style/opengraph.scss'
+import '../style/index.scss'
 import App from './App'
+import SourceRenderer from '../renderer/SourceRenderer'
+import HtmlUtils from '../renderer/HtmlUtils';
 
 const plugin = (editor) => {
   let app = new App(editor)
@@ -17,11 +19,20 @@ const plugin = (editor) => {
 
   editor.on("PreProcess", e => {
     $('[data-opengraph-url]', e.node).each((idx, elm) => {
+      console.log(elm)
       $(elm).removeAttr("contentEditable")
+    })
+    $('[data-opengraph-source]', e.node).each((idx, elm) => {
+      console.log(elm)
+      elm.outerHTML = HtmlUtils.urlDecode($(elm).attr('data-opengraph-source'))
     })
   })
 
   editor.on("SetContent", e => {
+    $('iframe, script').each((idx, elm) => {
+      let renderer = new SourceRenderer($(elm))
+      elm.outerHTML = renderer.render()
+    })
     $('[data-opengraph-url]').each((idx, elm) => {
       elm.contentEditable = false
     })
