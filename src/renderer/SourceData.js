@@ -9,14 +9,19 @@ class SourceData {
   }
 
   canRender() {
-    return this.tagName == 'SCRIPT' || this.url.indexOf('www.youtube.com') < 0
+    return this.tagName == 'SCRIPT' ||
+      (this.url.indexOf('https://www.youtube.com') < 0 && this.url.indexOf('https://w.soundcloud.com/player') < 0)
   }
 
   getKnownName() {
     const { url } = this
 
-    if (url.indexOf('gist.github.com')) {
+    if (url.indexOf('https://gist.github.com') == 0) {
       return 'GIST'
+    }
+
+    if (url.indexOf('https://www.google.com/maps') == 0) {
+      return 'GOOGLE MAPS'
     }
   }
 

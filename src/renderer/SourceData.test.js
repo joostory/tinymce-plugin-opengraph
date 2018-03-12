@@ -22,7 +22,15 @@ describe('can render', () => {
       src: 'https://www.youtube.com/watch/12345'
     })
     expect(target.canRender()).toBe(false)
-  })  
+  })
+
+  test('soundcloud cannot render', () => {
+    const target = new SourceData({
+      tagName: 'iframe',
+      src: 'https://w.soundcloud.com/player/fff'
+    })
+    expect(target.canRender()).toBe(false)
+  })
 })
 
 describe('get title', () => {
@@ -31,14 +39,23 @@ describe('get title', () => {
       tagName: 'script',
       src: 'http://test.com'
     })
-    expect(target.getTitle()).not.toBe('SCRIPT')
+    expect(target.getTitle()).toBe('SCRIPT')
   })
 
-  test('knownname', () => {
+  test('GIST', () => {
     const target = new SourceData({
       tagName: 'script',
       src: 'https://gist.github.com'
     })
     expect(target.getTitle()).toBe('GIST')
   })
+
+  test('GOOGLE MAPS', () => {
+    const target = new SourceData({
+      tagName: 'iframe',
+      src: 'https://www.google.com/maps'
+    })
+    expect(target.getTitle()).toBe('GOOGLE MAPS')
+  })
+
 })
