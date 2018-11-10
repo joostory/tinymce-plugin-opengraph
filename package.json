@@ -2,6 +2,7 @@
   "name": "tinymce-plugin-opengraph",
   "version": "0.3.3",
   "description": "opengraph TinyMCE plugin repo",
+  "main": "dist/opengraph/plugin.js",
   "scripts": {
     "start": "node server.js",
     "lint": "eslint 'src/**/*.js'",
