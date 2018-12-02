@@ -5,6 +5,8 @@ const handlebars = require('express-handlebars')
 const fetcher = require('opengraph-fetcher')
 const express = require('express')
 const app = express()
+const config = webpackConfig(process.env, {})
+
 
 app.engine('hbs', handlebars({
   defaultLayout: 'main.hbs'
@@ -12,8 +14,8 @@ app.engine('hbs', handlebars({
 app.set('view engine', 'hbs');
 
 app.use('/static', express.static('static'))
-app.use(middleware(webpack(webpackConfig), {
-  publicPath: webpackConfig.output.publicPath
+app.use(middleware(webpack(config), {
+  publicPath: config.output.publicPath
 }))
 
 app.get('/', (req, res) => {

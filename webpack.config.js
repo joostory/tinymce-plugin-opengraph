@@ -1,16 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const pluginName = 'opengraph'
 
-module.exports = {
-  entry: process.env.NODE_ENV !== "production" ? {
+const config = {
+  entry: {
     'bundle': './src/index.js'
-  } : {
-    'plugin': './src/index.js',
-    'plugin.min': './src/index.js'
   },
   output: {
     publicPath: '/',
@@ -41,11 +37,25 @@ module.exports = {
       }
     ]
   },
-  plugins: process.env.NODE_ENV !== "production" ? [] : [
-    new UglifyJsPlugin({}),
-    new CopyWebpackPlugin([{
-      from: path.join(__dirname, './src/LICENSE'),
-      to: path.join(__dirname, './dist', pluginName)
-    }])
-  ]
+  plugins: []
+}
+
+
+module.exports = (env, argv) => {
+
+  if (argv.mode === 'production') {
+    config.entry = {
+      'plugin': './src/index.js',
+      'plugin.min': './src/index.js'
+    }
+
+    config.plugins.push(
+      new CopyWebpackPlugin([{
+        from: path.join(__dirname, './src/LICENSE'),
+        to: path.join(__dirname, './dist', pluginName)
+      }])
+    )
+  }
+
+  return config
 }

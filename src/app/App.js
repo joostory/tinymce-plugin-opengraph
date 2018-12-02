@@ -34,7 +34,7 @@ class App {
           <div class="mce-opengraph-media">\
             <div class="mce-opengraph-header">\
               <input class="mce-opengraph-input" placeholder="http://url">\
-              <button class="mce-opengraph-search"><i class="mce-ico mce-plus">확인</i></button>\
+              <button class="mce-opengraph-search"><i class="ico_blog mce-ico mce-plus">확인</i></button>\
             </div>\
             <div class="mce-opengraph-body"></div>\
           </div>\
