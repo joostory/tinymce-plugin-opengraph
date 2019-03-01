@@ -1,14 +1,11 @@
-.mce-opengraph {
-  
-  &.media {
-    .mce-opengraph-source, .btn-media-mode {
-      display:none;
-    }
+&.media {
+  .mce-opengraph-source, .btn-media-mode {
+    display:none;
   }
+}
 
-  &.source {
-    .mce-opengraph-media, .btn-source-mode {
-      display:none;
-    }
+&.source {
+  .mce-opengraph-media, .btn-source-mode {
+    display:none;
   }
 }

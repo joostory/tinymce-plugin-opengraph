@@ -7,10 +7,12 @@ const plugin = (editor) => {
   let app = new App(editor)
   const $ = editor.$
 
-  editor.addButton('opengraph', {
+  editor.ui.registry.addButton('opengraph', {
     icon: 'media',
     tooltip: '미디어',
-    cmd: 'mceOpengraph'
+    onAction: () => {
+      editor.execCommand('mceOpengraph')
+    }
   })
 
   editor.addCommand('mceOpengraph', () => {
@@ -19,11 +21,9 @@ const plugin = (editor) => {
 
   editor.on("PreProcess", e => {
     $('[data-opengraph-url]', e.node).each((idx, elm) => {
-      console.log(elm)
       $(elm).removeAttr("contentEditable")
     })
     $('[data-opengraph-source]', e.node).each((idx, elm) => {
-      console.log(elm)
       elm.outerHTML = HtmlUtils.urlDecode($(elm).attr('data-opengraph-source'))
     })
   })

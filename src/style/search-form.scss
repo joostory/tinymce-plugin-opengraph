@@ -1,29 +1,26 @@
 
 .mce-opengraph-input {
-  margin: 20px;
-}
-
-.mce-opengraph .mce-opengraph-input {
+  margin: 0;
   width: 100%;
   border: 1px solid #C5CDD7;
-  height: 37px;
+  height: 38px;
   padding: 10px;
   box-sizing: border-box;
   font-size: 13px;
   color: #333;
-  background-color: #fff
+  background-color: #fff;
+
+  &:focus {
+    border-color: #828C9B
+  }
 }
 
-.mce-opengraph .mce-opengraph-input:focus {
-  border-color: #828C9B
-}
-
-.mce-opengraph .mce-opengraph-search {
+.mce-opengraph-search {
   position: absolute;
-  right: 30px;
-  top: 30px;
-  width: 37px;
-  height: 37px;
+  right: 38px;
+  top: 35px;
+  width: 30px;
+  height: 30px;
   overflow: hidden;
   cursor: pointer;
   text-align: center;
@@ -32,13 +29,7 @@
   align-items:center;
 }
 
-.mce-opengraph .mce-opengraph-input:focus+.mce-opengraph-search .mce-ico.mce-plus {
-  background-position: -220px 0
+.mce-opengraph-search:disabled {
+  color:#eee;
 }
 
-.mce-opengraph .mce-ico.mce-plus {
-  width:13px;
-  height:13px;
-  text-indent: -10000px;
-  background-position: -200px 0;
-}

@@ -1,59 +1,86 @@
-.mce-opengraph {
-  .mce-opengraph-header {
-    padding: 30px;
-    position: relative
+.mce-opengraph-header {
+  padding: 30px;
+  position: relative
+}
+
+.mce-opengraph-body {
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #828C9B;
+  font-size: 18px
+}
+
+.ico_loading {
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: 0 auto;
+  background-position: 0 0;
+  animation: aniSpinRev 1s infinite linear;
+}
+
+@keyframes aniSpinRev {
+  from {
+    transform: rotate(360deg)
   }
-  
-  .mce-opengraph-body {
-    position: absolute;
-    top: 70px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #828C9B;
-    font-size: 18px
+
+  to {
+    transform: rotate(0deg)
   }
-  
-  .ico_loading {
-    display: block;
-    width: 28px;
-    height: 28px;
-    margin: 0 auto;
-    background-position: 0 0;
-    animation: aniSpinRev 1s infinite linear;
+}
+
+.ico_blog {
+  display: inline-block;
+  overflow: hidden;
+  background: url(https://t1.daumcdn.net/tistory_admin/static/manage/images/r1/ico_tistory_170731.png) no-repeat;
+  vertical-align: top;
+  text-indent: -9999px;
+}
+
+.mce-opengraph-video-preview {
+  width: 420px;
+  height: 235px;
+  box-shadow: 0 1px 5px #999;
+
+  iframe {
+    width: 100%;
+    height: 100%;
   }
-  
-  .ico_blog {
-    display: inline-block;
-    overflow: hidden;
-    background: url(https://t1.daumcdn.net/tistory_admin/static/manage/images/r1/ico_tistory_170731.png) no-repeat;
-    vertical-align: top;
-    text-indent: -9999px;
-  }
-  
-  .mce-opengraph-preview {
-    width: 470px;
-    height: 330px;
-    box-shadow: 0 1px 5px #999;
-    margin-top: -15px
-  }
-  
+}
+
+.mce-opengraph-preview {
+  width: 420px;
+  height: 100px;
+  box-shadow: 0 1px 5px #999;
+  position:relative;
+
   .mce-opengraph-image {
-    width: 470px;
-    height: 235px;
-    overflow: hidden
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
   }
   
   .mce-opengraph-image img {
-    width: 470px
+    max-width: 100px;
+    max-height: 100px;
   }
   
   .mce-opengraph-content {
-    width: 470px;
-    height: 95px;
+    position:absolute;
+    left:100px;
+    top:0;
+    width: 320px;
+    height: 100px;
     padding: 10px;
     box-sizing: border-box;
     background-color: #fff
@@ -88,5 +115,5 @@
     color: #999;
     line-height: 14px
   }
-  
 }
+

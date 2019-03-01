@@ -26,96 +26,155 @@ class App {
   }
 
   open() {
-    let win = this.editor.windowManager.open({
-      title: '미디어 삽입',
-      items: [{
-        type: 'container',
-        html: '<div class="mce-opengraph media" style="width:600px; height:534px">\
-          <div class="mce-opengraph-media">\
-            <div class="mce-opengraph-header">\
-              <input class="mce-opengraph-input" placeholder="http://url">\
-              <button class="mce-opengraph-search"><i class="ico_blog mce-ico mce-plus">확인</i></button>\
-            </div>\
-            <div class="mce-opengraph-body"></div>\
-          </div>\
-          <div class="mce-opengraph-source">\
-            <textarea class="mce-opengraph-textarea" placeholder="<iframe src=\'media-url\' />"></textarea>\
-          </div>\
-          <div class="mce-opengraph-footer">\
-            <div class="mce-opengraph-mode">\
-              <a class="btn-source-mode">source</a>\
-              <a class="btn-media-mode">media</a>\
-            </div>\
-            <div class="mce-opengraph-btns">\
-              <button class="btn-cancel">취소</button>\
-              <button class="btn-submit" disabled>삽입</button>\
-            </div>\
-          </div>\
-        </div>'
-      }],
-      buttons: []
-    })
-    win.statusbar.remove()
-
-    this.$area = win.$('.mce-opengraph')
-    this.$input = win.$('.mce-opengraph-input')
-    this.$btnSearch = win.$('.mce-opengraph-search')
-    this.$body = win.$('.mce-opengraph-body')
-    
-    this.$source = win.$('.mce-opengraph-source .mce-opengraph-textarea')
-
-    this.$btnSubmit = win.$('.mce-opengraph-btns .btn-submit')
-    this.$btnCancel = win.$('.mce-opengraph-btns .btn-cancel')
-    this.$window = win.$(window)
-    this.$modalBlock = win.$('#mce-modal-block')
-    this.$btnSourceMode = win.$(".btn-source-mode")
-    this.$btnMediaMode = win.$(".btn-media-mode")
-    
-    this.$input.on("keydown", this.onSearchInputKeydown)
-    this.$btnSearch.on("click", this.onSearch)
-    this.$source.on("keyup", this.onSourceChange)
-    this.$btnSubmit.on("click", this.onSubmit)
-    this.$btnCancel.on("click", this.onCancel)
-    this.$window.on("keydown", this.onWindowKeydown)
-    this.$modalBlock.on("click", this.onCancel)
-    this.$btnSourceMode.on("click", this.handleChangeSourceMode)
-    this.$btnMediaMode.on("click", this.handleChangeMediaMode)
-    this.$input[0].focus()
-
-    this.win = win
-
+    this.win = this.makeWindow()
+    this.initView()
+    this.attachViewEvent()
     this.updateView()
+    this.$input[0].focus()
   }
 
-  close() {
+  makeWindow() {
+    return this.editor.windowManager.open({
+      title: '미디어 삽입',
+      width: 600,
+      height: 480,
+      body: {
+        type: 'panel', 
+        items: [
+          {
+            type: 'htmlpanel',
+            name: 'opengraph',
+            html: `<div class="mce-opengraph media">
+              <div class="mce-opengraph-media">
+                <div class="mce-opengraph-header">
+                  <form class="opengraph-search-form">
+                    <input class="mce-opengraph-input" placeholder="http://url">
+                    <button class="mce-opengraph-search" disabled="disabled">확인</button>
+                  </form>
+                </div>
+                <div class="mce-opengraph-body"></div>
+              </div>
+              <div class="mce-opengraph-source">
+                <textarea class="mce-opengraph-textarea" placeholder="<iframe src='media-url' />"></textarea>
+              </div>
+            </div>`
+          }
+        ]
+      },
+      buttons: [
+        {
+          type: 'custom',
+          name: 'toggle-mode',
+          text: 'source',
+          align: 'start'
+        },
+        {
+          type: 'cancel',
+          name: 'cancel',
+          align: 'end',
+          text: '취소'
+        },
+        {
+          type: 'submit',
+          name: 'save',
+          align: 'end',
+          text: '삽입',
+          primary: true
+        }
+      ],
+      onAction: this.handleOnAction,
+      onSubmit: this.handleOnSubmit,
+      onCancel: this.handleOnCancel,
+    })
+  }
+
+  initView() {
+    const $ = this.editor.$
+    const $area = $(document.getElementsByClassName('mce-opengraph')[0])
+    this.$searchForm = $area.find('.opengraph-search-form')
+    this.$input = $area.find('.mce-opengraph-input')
+    this.$btnSearch = $area.find('.mce-opengraph-search')
+    this.$body = $area.find('.mce-opengraph-body')
+    this.$source = $area.find('.mce-opengraph-source .mce-opengraph-textarea')
+    this.$area = $area
+  }
+
+  @autobind
+  handleOnAction(api, data) {
+    if (data.name != 'toggle-mode') {
+      return
+    }
+
+    if (this.mode == MODE_MEDIA) {
+      this.handleChangeSourceMode()
+    } else {
+      this.handleChangeMediaMode()
+    }
+  }
+
+  @autobind
+  handleOnSubmit() {
+    const { editor, opengraph, mode, source, win } = this
+
+    let renderer
+    if (mode == MODE_MEDIA) {
+      renderer = new OpengraphRenderer(opengraph)
+    } else if (mode == MODE_SOURCE) {
+      renderer = new SourceRenderer(editor.$(source))
+    }
+
+    if (renderer) {
+      editor.insertContent(renderer.render())
+      editor.nodeChanged()
+    }
+    win.close()
+    this.detachViewEvent()
+  }
+
+  @autobind
+  handleOnCancel() {
+    this.detachViewEvent()
+  }
+
+  attachViewEvent() {
+    this.$searchForm.on('submit', e => {
+      e.preventDefault()
+      this.fetchOpengraph(this.$input[0].value)
+    })
+
+    this.$input.on('keyup', e => {
+      if (isURL(e.target.value)) {
+        this.$btnSearch.removeAttr('disabled')
+      } else {
+        this.$btnSearch.attr('disabled', 'disabled')
+      }
+    })
+
+    this.$source.on('change', e => {
+      this.source = e.target.value
+    })
+  }
+
+  detachViewEvent() {
     if (this.win) {
-      this.$input.off("keydown")
-      this.$btnSearch.off("click")
-      this.$btnSubmit.off("click")
-      this.$btnCancel.off("click")
-      this.$window.off("keydown")
-      this.$modalBlock.off("click")
-      this.$btnSourceMode.off("click")
-      this.$btnMediaMode.off("click")
-      this.win.close()
+      this.$searchForm.off('submit')
+      this.$input.off("keyup")
       
       this.opengraph = null
+      this.$searchForm = null
       this.$input = null
+      this.$btnSearch = null
       this.$body = null
+      this.$source = null
       this.status = STATUS_READY
       this.win = null
     }
   }
 
+
   updateView() {
     const { $body, $btnSubmit, opengraph, status, mode, source } = this
-    if (mode == MODE_SOURCE) {
-      if (source.length > 0) {
-        $btnSubmit.removeAttr("disabled")
-      } else {
-        $btnSubmit.attr("disabled", true)
-      }
-    } else {
+    if (mode == MODE_MEDIA) {
       switch (status) {
         case (STATUS_VIEW):
           this.showOpengraph()
@@ -123,21 +182,22 @@ class App {
           break;
         case (STATUS_FAILED):
           $body.html("미리보기를 불러오지 못했습니다.")
-          $btnSubmit.attr("disabled", true)
           break;
         case (STATUS_FETCHING):
           $body.html("<span class='ico_blog ico_loading'></span>")
-          $btnSubmit.attr("disabled", true)
           break;
         default:
           $body.html("이 곳에 미리보기가 표시됩니다.")
-          $btnSubmit.attr("disabled", true)
       }
     }
     
   }
 
   fetchOpengraph(value) {
+    if (!value || !isURL(value)) {
+      return
+    }
+
     this.status = STATUS_FETCHING
     this.updateView()
 
@@ -159,36 +219,9 @@ class App {
   }
 
   @autobind
-  onWindowKeydown(e) {
-    let keyCode = e.keyCode
-    if (keyCode === 27) {
-      this.close()
-    }
-  }
-
-  @autobind
-  onSearchInputKeydown(e) {
-    let keyCode = e.keyCode
-    if (keyCode === 13 || keyCode === 9) {
-      this.onSearch()
-    }
-  }
-
-  @autobind
-  onSearch() {
-    let value = this.$input[0].value
-    if (!isURL(value)) {
-      this.status = STATUS_FAILED
-      this.updateView()
-    } else {
-      this.fetchOpengraph(value)
-    }
-  }
-
-  @autobind
   onSourceChange(e) {
     this.source = this.$source[0].value
-    this.updateView()
+    // this.updateView()
   }
 
   @autobind
@@ -205,30 +238,6 @@ class App {
     this.mode = MODE_MEDIA
     this.updateView()
     this.$input[0].focus()
-  }
-
-  @autobind
-  onSubmit(e) {
-    const { editor, opengraph, mode, source } = this
-
-    let renderer
-    if (mode == MODE_MEDIA) {
-      renderer = new OpengraphRenderer(opengraph)
-    } else if (mode == MODE_SOURCE) {
-      renderer = new SourceRenderer(editor.$(source))
-    }
-
-    if (renderer) {
-      editor.insertContent(renderer.render())
-      editor.nodeChanged()
-    }
-
-    this.close()
-  }
-
-  @autobind
-  onCancel(e) {
-    this.close()
   }
 }
 
