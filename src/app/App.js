@@ -173,12 +173,11 @@ class App {
 
 
   updateView() {
-    const { $body, $btnSubmit, opengraph, status, mode, source } = this
+    const { $body, status, mode } = this
     if (mode == MODE_MEDIA) {
       switch (status) {
         case (STATUS_VIEW):
           this.showOpengraph()
-          $btnSubmit.removeAttr("disabled")
           break;
         case (STATUS_FAILED):
           $body.html("미리보기를 불러오지 못했습니다.")
