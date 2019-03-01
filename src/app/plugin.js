@@ -8,7 +8,7 @@ const plugin = (editor) => {
   const $ = editor.$
 
   editor.ui.registry.addButton('opengraph', {
-    icon: 'media',
+    icon: 'embed',
     tooltip: '미디어',
     onAction: () => {
       editor.execCommand('mceOpengraph')
