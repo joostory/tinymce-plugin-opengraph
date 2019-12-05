@@ -1,4 +1,4 @@
-import { isURL } from './validate'
+import { isURL, validation } from './validate'
 import OpengraphRenderer from '../renderer/OpengraphRenderer'
 import OpengraphPreviewRenderer from '../renderer/OpengraphPreviewRenderer'
 import SourceRenderer from '../renderer/SourceRenderer'
@@ -143,7 +143,7 @@ class App {
     })
 
     this.$input.on('keyup', e => {
-      if (isURL(e.target.value)) {
+      if (isURL(e.target.value, true)) {
         this.$btnSearch.removeAttr('disabled')
       } else {
         this.$btnSearch.attr('disabled', 'disabled')
@@ -193,14 +193,14 @@ class App {
   }
 
   fetchOpengraph(value) {
-    if (!value || !isURL(value)) {
+    if (!value || !isURL(value, true)) {
       return
     }
 
     this.status = STATUS_FETCHING
     this.updateView()
 
-    this.fetchHandler(value, (data) => {
+    this.fetchHandler(validation(value), (data) => {
       if (data) {
         this.opengraph = data
         this.status = STATUS_VIEW
