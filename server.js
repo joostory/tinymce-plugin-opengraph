@@ -5,7 +5,7 @@ const handlebars = require('express-handlebars')
 const fetcher = require('opengraph-fetcher')
 const express = require('express')
 const app = express()
-const config = webpackConfig(process.env, {})
+const config = webpackConfig(process.env, { mode: 'development' })
 
 
 app.engine('hbs', handlebars({

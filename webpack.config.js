@@ -55,6 +55,10 @@ module.exports = (env, argv) => {
         to: path.join(__dirname, './dist', pluginName)
       }])
     )
+
+    config.mode = 'production'
+  } else {
+    config.mode = 'development'
   }
 
   return config
