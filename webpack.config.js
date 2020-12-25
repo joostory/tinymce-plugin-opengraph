@@ -50,10 +50,12 @@ module.exports = (env, argv) => {
     }
 
     config.plugins.push(
-      new CopyWebpackPlugin([{
-        from: path.join(__dirname, './src/LICENSE'),
-        to: path.join(__dirname, './dist', pluginName)
-      }])
+      new CopyWebpackPlugin({
+        patterns: [{
+          from: path.join(__dirname, './src/LICENSE'),
+          to: path.join(__dirname, './dist', pluginName)
+        }]
+      })
     )
 
     config.mode = 'production'
