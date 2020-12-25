@@ -23,9 +23,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/opengraph', (req, res) => {
-  fetcher.fetch(req.query.url, opengraph => {
-    res.send(opengraph)
-  })
+  fetcher.fetch(req.query.url)
+    .then(opengraph => res.send(opengraph))
 })
 
 app.listen(3000, () => console.log('tinymce-plugin-opengraph dev app listening on port 3000.'))
