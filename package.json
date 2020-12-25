@@ -1,6 +1,6 @@
 {
   "name": "tinymce-plugin-opengraph",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "opengraph TinyMCE plugin repo",
   "main": "dist/opengraph/plugin.js",
   "scripts": {
