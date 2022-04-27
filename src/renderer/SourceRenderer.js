@@ -10,7 +10,7 @@ class SourceRenderer {
     const { $elm } = this
 
     let result = ''
-    $elm.each((idx, elm) => {
+    $elm.forEach((elm) => {
       result += this.renderElement(elm) 
     })
 

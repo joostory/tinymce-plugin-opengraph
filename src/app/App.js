@@ -4,6 +4,7 @@ import OpengraphPreviewRenderer from '../renderer/OpengraphPreviewRenderer'
 import SourceRenderer from '../renderer/SourceRenderer'
 
 import autobind from 'autobind-decorator'
+import { getOption } from './options'
 
 const STATUS_READY = 1
 const STATUS_FETCHING = 2
@@ -21,8 +22,7 @@ class App {
     this.source = ''
     this.status = STATUS_READY
     this.mode = MODE_MEDIA
-
-    this.fetchHandler = this.editor.settings.opengraph && this.editor.settings.opengraph.fetch_handler ? this.editor.settings.opengraph.fetch_handler : () => {}
+    this.fetchHandler = getOption(this.editor, 'fetch_handler')
   }
 
   open() {
@@ -89,13 +89,13 @@ class App {
   }
 
   initView() {
-    const $ = this.editor.$
-    const $area = $(document.getElementsByClassName('mce-opengraph')[0])
-    this.$searchForm = $area.find('.opengraph-search-form')
-    this.$input = $area.find('.mce-opengraph-input')
-    this.$btnSearch = $area.find('.mce-opengraph-search')
-    this.$body = $area.find('.mce-opengraph-body')
-    this.$source = $area.find('.mce-opengraph-source .mce-opengraph-textarea')
+    const dom = this.editor.dom
+    const $area = document.getElementsByClassName('mce-opengraph')[0]
+    this.$searchForm = dom.select('.opengraph-search-form', $area)
+    this.$input = dom.select('.mce-opengraph-input', $area)
+    this.$btnSearch = dom.select('.mce-opengraph-search', $area)
+    this.$body = dom.select('.mce-opengraph-body', $area)
+    this.$source = dom.select('.mce-opengraph-source .mce-opengraph-textarea', $area)
     this.$area = $area
   }
 
@@ -137,28 +137,28 @@ class App {
   }
 
   attachViewEvent() {
-    this.$searchForm.on('submit', e => {
+    this.editor.dom.bind(this.$searchForm, 'submit', e => {
       e.preventDefault()
       this.fetchOpengraph(this.$input[0].value)
     })
 
-    this.$input.on('keyup', e => {
+    this.editor.dom.bind(this.$input, 'keyup', e => {
       if (isURL(e.target.value, true)) {
-        this.$btnSearch.removeAttr('disabled')
+        this.editor.dom.setAttrib(this.$btnSearch, 'disabled', null)
       } else {
-        this.$btnSearch.attr('disabled', 'disabled')
+        this.editor.dom.setAttrib(this.$btnSearch, 'disabled', 'disabled')
       }
     })
 
-    this.$source.on('change', e => {
+    this.editor.dom.bind(this.$source, 'change', e => {
       this.source = e.target.value
     })
   }
 
   detachViewEvent() {
     if (this.win) {
-      this.$searchForm.off('submit')
-      this.$input.off("keyup")
+      this.editor.dom.unbind(this.$searchForm, 'submit')
+      this.editor.dom.unbind(this.$input, "keyup")
       
       this.opengraph = null
       this.$searchForm = null
@@ -173,20 +173,20 @@ class App {
 
 
   updateView() {
-    const { $body, status, mode } = this
+    const { $body, status, mode, editor } = this
     if (mode == MODE_MEDIA) {
       switch (status) {
         case (STATUS_VIEW):
           this.showOpengraph()
           break;
         case (STATUS_FAILED):
-          $body.html("미리보기를 불러오지 못했습니다.")
+          editor.dom.setHTML($body, "미리보기를 불러오지 못했습니다.")
           break;
         case (STATUS_FETCHING):
-          $body.html("<span class='ico_blog ico_loading'></span>")
+          editor.dom.setHTML($body, "<span class='ico_blog ico_loading'></span>")
           break;
         default:
-          $body.html("이 곳에 미리보기가 표시됩니다.")
+          editor.dom.setHTML($body, "이 곳에 미리보기가 표시됩니다.")
       }
     }
     
@@ -212,20 +212,20 @@ class App {
   }
 
   showOpengraph() {
-    const { opengraph, $body } = this
+    const { opengraph, $body, editor } = this
     let renderer = new OpengraphPreviewRenderer(opengraph)
-    $body.html(renderer.render())
+    editor.dom.setHTML($body, renderer.render())
   }
 
   @autobind
   onSourceChange(e) {
     this.source = this.$source[0].value
-    // this.updateView()
   }
 
   @autobind
   handleChangeSourceMode() {
-    this.$area.addClass('source').removeClass('media')
+    this.editor.dom.addClass(this.$area, 'source')
+    this.editor.dom.removeClass(this.$area, 'media')
     this.mode = MODE_SOURCE
     this.updateView()
     this.$source[0].focus()
@@ -233,7 +233,8 @@ class App {
 
   @autobind
   handleChangeMediaMode() {
-    this.$area.addClass('media').removeClass('source')
+    this.editor.dom.addClass(this.$area, 'media')
+    this.editor.dom.removeClass(this.$area, 'source')
     this.mode = MODE_MEDIA
     this.updateView()
     this.$input[0].focus()

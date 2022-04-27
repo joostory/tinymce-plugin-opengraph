@@ -1,26 +1,34 @@
-<textarea id='editor'>
-  <p>Opengraph 테스트</p>
-</textarea>
-
-<script src="//cloud.tinymce.com/5/tinymce.min.js"></script>
-<script src="/bundle.js"></script>
-<script>
-  tinymce.init({
-    selector:'textarea#editor',
-    body_class: 'content',
-    plugins: 'opengraph code autoresize',
-    toolbar: 'opengraph code',
-    extended_valid_elements : 'script[type|src]',
-    opengraph: {
-      fetch_handler: (url, callback) => {
-        fetch(`/opengraph?url=${encodeURIComponent(url)}`, {
-          method: 'get'
-        })
-        .then(res => res.json())
-        .then(json => {
-          callback(json)
-        })
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Opengraph Tinymce plugin</title>
+  <script src="https://cloud.tinymce.com/6/tinymce.min.js"></script>
+  <script src="/bundle.js"></script>
+  <script>
+    tinymce.init({
+      selector:'textarea#editor',
+      body_class: 'content',
+      plugins: 'opengraph code autoresize',
+      toolbar: 'opengraph code',
+      extended_valid_elements : 'script[type|src]',
+      opengraph: {
+        fetch_handler: (url, callback) => {
+          fetch(`/opengraph?url=${encodeURIComponent(url)}`, {
+            method: 'get'
+          })
+          .then(res => res.json())
+          .then(json => {
+            callback(json)
+          })
+        }
       }
-    }
-  });
-</script>
+    });
+  </script>
+</head>
+<body>
+  <textarea id='editor'>
+    <p>Opengraph 테스트</p>
+  </textarea>
+</body>
+</html>

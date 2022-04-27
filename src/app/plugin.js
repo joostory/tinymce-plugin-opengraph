@@ -2,10 +2,12 @@ import '../style/index.scss'
 import App from './App'
 import SourceRenderer from '../renderer/SourceRenderer'
 import HtmlUtils from '../renderer/HtmlUtils';
+import { registerOptions } from './options';
 
-const plugin = (editor) => {
+const plugin = (editor, pluginUrl) => {
+  registerOptions(editor)
+
   let app = new App(editor)
-  const $ = editor.$
 
   editor.ui.registry.addButton('opengraph', {
     icon: 'embed',
@@ -16,24 +18,26 @@ const plugin = (editor) => {
   })
 
   editor.addCommand('mceOpengraph', () => {
-    app.open()
+    app.open(editor)
   })
 
   editor.on("PreProcess", e => {
-    $('[data-opengraph-url]', e.node).each((idx, elm) => {
-      $(elm).removeAttr("contentEditable")
+    const dom = editor.dom
+    dom.select(e.node, '[data-opengraph-url]').forEach((elm) => {
+      dom.setAttrib(elm, "contentEditable", null)
     })
-    $('[data-opengraph-source]', e.node).each((idx, elm) => {
-      elm.outerHTML = HtmlUtils.urlDecode($(elm).attr('data-opengraph-source'))
+    dom.select(e.node, '[data-opengraph-source]').forEach((elm) => {
+      elm.outerHTML = HtmlUtils.urlDecode(dom.getAttrib(elm, 'data-opengraph-source'))
     })
   })
 
   editor.on("SetContent", e => {
-    $('iframe, script').each((idx, elm) => {
-      let renderer = new SourceRenderer($(elm))
+    const dom = editor.dom
+    dom.select('iframe, script').forEach((elm) => {
+      let renderer = new SourceRenderer(elm)
       elm.outerHTML = renderer.render()
     })
-    $('[data-opengraph-url]').each((idx, elm) => {
+    dom.select('[data-opengraph-url]').forEach(elm => {
       elm.contentEditable = false
     })
   })
