@@ -1,14 +1,14 @@
 const webpack = require('webpack')
 const middleware = require('webpack-dev-middleware')
 const webpackConfig = require('./webpack.config')
-const handlebars = require('express-handlebars')
+const { engine } = require('express-handlebars')
 const fetcher = require('opengraph-fetcher')
 const express = require('express')
 const app = express()
 const config = webpackConfig(process.env, { mode: 'development' })
 
 
-app.engine('hbs', handlebars({
+app.engine('hbs', engine({
   defaultLayout: 'main.hbs'
 }));
 app.set('view engine', 'hbs');
