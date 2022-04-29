@@ -23,10 +23,10 @@ const plugin = (editor, pluginUrl) => {
 
   editor.on("PreProcess", e => {
     const dom = editor.dom
-    dom.select(e.node, '[data-opengraph-url]').forEach((elm) => {
+    dom.select('[data-opengraph-url]', e.node).forEach((elm) => {
       dom.setAttrib(elm, "contentEditable", null)
     })
-    dom.select(e.node, '[data-opengraph-source]').forEach((elm) => {
+    dom.select('[data-opengraph-source]', e.node).forEach((elm) => {
       elm.outerHTML = HtmlUtils.urlDecode(dom.getAttrib(elm, 'data-opengraph-source'))
     })
   })
